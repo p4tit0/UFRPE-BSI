@@ -16,6 +16,62 @@ class DispensadoraTest {
     }
 
     @Test
+    void testConstrutorComCedulasNegativas() {
+        int[] cedulasNegativas = {-1, 10, 10, 10, 10, 10};
+        assertThrows(IllegalArgumentException.class, () -> new Dispensadora(cedulasNegativas),
+            "Deveria lançar exceção quando há cédulas negativas");
+    }
+
+    @Test
+    void testConstrutorComTodasCedulasNegativas() {
+        int[] todasNegativas = {-10, -10, -10, -10, -10, -10};
+        assertThrows(IllegalArgumentException.class, () -> new Dispensadora(todasNegativas),
+            "Deveria lançar exceção quando todas as cédulas são negativas");
+    }
+
+    @Test
+    void testConstrutorComArrayNulo() {
+        assertThrows(IllegalArgumentException.class, () -> new Dispensadora(null),
+            "Deveria lançar exceção quando o array é nulo");
+    }
+
+    @Test
+    void testConstrutorComArrayVazio() {
+        int[] arrayVazio = {};
+        assertThrows(IllegalArgumentException.class, () -> new Dispensadora(arrayVazio),
+            "Deveria lançar exceção quando o array está vazio");
+    }
+
+    @Test
+    void testConstrutorComArrayMuitoGrande() {
+        int[] arrayGrande = new int[10];
+        assertThrows(IllegalArgumentException.class, () -> new Dispensadora(arrayGrande),
+            "Deveria lançar exceção quando o array tem tamanho incorreto");
+    }
+
+    @Test
+    void testConstrutorComQuantidadeZeroEmTodasCedulas() {
+        int[] todasZeradas = {0, 0, 0, 0, 0, 0};
+        assertDoesNotThrow(() -> new Dispensadora(todasZeradas),
+            "Máquina sem cédulas deveria ser uma inicialização válida");
+    }
+
+    @Test
+    void testConstrutorComQuantidadeZeroEmAlgumasCedulas() {
+        int[] algumasZeradas = {0, 10, 0, 5, 0, 20};
+        assertDoesNotThrow(() -> new Dispensadora(algumasZeradas),
+            "Máquina com algumas cédulas zeradas deveria ser válida");
+    }
+
+    @Test
+    void testConstrutorComValoresMaximosInt() {
+        int[] valoresMaximos = {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 
+                                Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
+        assertDoesNotThrow(() -> new Dispensadora(valoresMaximos),
+            "Valores máximos de int deveriam ser aceitos na inicialização");
+    }
+
+    @Test
     void testConstrutorComQuantidadeInvalidaDeCedulas() {
         int[] cedulasInvalidas = {10, 10, 10, 10};
         assertThrows(IllegalArgumentException.class, () -> new Dispensadora(cedulasInvalidas));
